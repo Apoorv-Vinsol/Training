@@ -1,0 +1,76 @@
+<!doctype html>
+	<head>
+		<title>JavaScript Exercise 4</title>
+		<script type="text/javascript">
+			
+			function toggle(list_name){
+				 checkbox = document.getElementsByName(list_name)[0];
+				 list = document.getElementById(list_name);
+				if(checkbox.checked){
+					list.setAttribute('class', 'visible_list');
+					list.scrollIntoView();
+				}
+				else{
+					list.setAttribute('class', 'invisible_list');	
+				}
+			}
+
+		</script>
+		<style type="text/css">
+			#container{
+				width: 300px;
+				position: absolute;
+				height: 100px;
+				overflow-y: auto; 
+			}
+			.visible_list{
+				display: visible;
+			}
+			.invisible_list{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='container'>
+			<ul>
+				<li>
+					<label>Color</label>
+					<input type='checkbox' value='Color' name='color' onclick="toggle('color')" />
+					<ul id='color' class='invisible_list'>
+						<li>Red</li>
+						<li>Green</li>
+						<li>Yellow</li>
+						<li>Blue</li>
+					</ul>
+				</li>
+				<li>
+					<label>Drinks</label>
+					<input type='checkbox' value='Drinks' name='drinks' onclick="toggle('drinks')" />					
+					<ul id='drinks' class='invisible_list'>
+						<li>Coke</li>
+						<li>Pepsi</li>
+						<li>Dew</li>
+					</ul>
+				</li>
+				<li>
+					<label>Movies</label>
+					<input type='checkbox' value='Movies' name='movies' onclick="toggle('movies')" />
+					<ul id='movies' class='invisible_list'>
+						<li>Dar</li>
+						<li>Sir</li>
+					</ul>
+				</li>
+				<li>
+					<label>Bikes</label>
+					<input type='checkbox' value='Bikes' name='bikes' onclick="toggle('bikes')" />
+					<ul id='bikes' class='invisible_list'>
+						<li>V-Rod</li>
+						<li>Pulser</li>
+						<li>CBZ</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

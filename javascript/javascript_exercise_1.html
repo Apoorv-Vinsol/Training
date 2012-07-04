@@ -1,0 +1,33 @@
+<!doctype html>
+	<head>
+		<title>JavaScript Exercise 1</title>
+		<script type="text/javascript">
+			function check(state){
+				var checkboxes_array = document.getElementsByTagName('input');
+				for (var k=0; k<checkboxes_array.length;k++){
+					checkboxes_array[k].checked = state;
+				}
+				console.log('checkall called');
+			}
+		</script>
+	</head>
+	<body>
+		<label>Red</label>
+		<input type='checkbox' name='red' value='red'/><br/>
+		<label>Green</label>
+		<input type='checkbox' name='green' value='green'/><br/>
+		<label>Yellow</label>
+		<input type='checkbox' name='yellow' value='yellow'/><br/>
+		<label>White</label>
+		<input type='checkbox' name='white' value='white'/><br/>
+		<label>Black</label>
+		<input type='checkbox' name='black' value='black'/><br/><br/>
+
+		<label>Check All</label>
+		<input type='checkbox' name='black' value='black' onclick='check(true)'/><br/>
+
+		<label>Check None</label>
+		<input type='checkbox' name='black' value='black' onclick='check(false)'/><br/>
+
+	</body>
+</html>

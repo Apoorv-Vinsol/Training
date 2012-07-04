@@ -1,0 +1,94 @@
+<!doctype html>
+	<head>
+		<title>JavaScript Json Product products_array Task</title>
+		<style type="text/css">
+			select{
+				padding: 6px;
+			}
+			label{
+				font-size: 16px;
+			}
+			option{
+				padding: 3px;
+			}
+			ul{
+				list-style: none;
+			}
+			#content li{
+				display: inline-block;
+				padding: 5px;
+			}
+		</style>
+		<script type="text/javascript">
+		var product_json = '[{"name":"1","url":"1.jpg","color":"Yellow","brand":"BRAND A","sold_out":"1"},{"name":"2","url":"2.jpg","color":"Red","brand":"BRAND B","sold_out":"0"},{"name":"3","url":"3.jpg","color":"Green","brand":"BRAND D","sold_out":"0"},{"name":"4","url":"4.jpg","color":"Red","brand":"BRAND A","sold_out":"1"},{"name":"5","url":"5.jpg","color":"Blue","brand":"BRAND B","sold_out":"0"},{"name":"6","url":"6.jpg","color":"Green","brand":"BRAND C","sold_out":"0"},{"name":"7","url":"7.jpg","color":"Red","brand":"BRAND C","sold_out":"1"},{"name":"8","url":"8.jpg","color":"Blue","brand":"BRAND D","sold_out":"0"},{"name":"9","url":"9.jpg","color":"Yellow","brand":"BRAND A","sold_out":"0"},{"name":"10","url":"10.jpg","color":"Yellow","brand":"BRAND B","sold_out":"1"},{"name":"11","url":"11.jpg","color":"Green","brand":"BRAND D","sold_out":"0"},{"name":"12","url":"12.jpg","color":"Yellow","brand":"BRAND D","sold_out":"0"},{"name":"13","url":"13.jpg","color":"Blue","brand":"BRAND A","sold_out":"0"},{"name":"14","url":"14.jpg","color":"Blue","brand":"BRAND D","sold_out":"0"},{"name":"15","url":"15.jpg","color":"Green","brand":"BRAND B","sold_out":"0"},{"name":"16","url":"16.jpg","color":"Yellow","brand":"BRAND B","sold_out":"1"},{"name":"17","url":"17.jpg","color":"Green","brand":"BRAND A","sold_out":"1"},{"name":"18","url":"18.jpg","color":"Blue","brand":"BRAND D","sold_out":"1"},{"name":"19","url":"19.jpg","color":"Green","brand":"BRAND C","sold_out":"0"},{"name":"20","url":"20.jpg","color":"Yellow","brand":"BRAND A","sold_out":"0"}]';
+
+		var products_array = JSON.parse(product_json);
+
+		function create_element(index) {
+			var li_element, div_element, img_element, ul_element = document.getElementsByTagName('ul')[0];
+
+			li_element = document.createElement('li');
+			div_element = document.createElement('div');
+			img_element = document.createElement('img');
+			img_element.setAttribute('src', products_array[index].url);
+			img_element.setAttribute('alt', products_array[index].name + " " + products_array[index].color + " " + products_array[index].brand + " " + products_array[index].sold_out);
+			div_element.appendChild(img_element);
+			li_element.appendChild(div_element);
+			ul_element.appendChild(li_element);
+		}
+
+		function create_initial_elements() {
+			var i;
+			for (i = 0; i < products_array.length; i++) {
+				create_element(i);
+			};
+		}
+
+		window.onload = function() {
+			create_initial_elements();
+		};
+
+		function remove_li_elements() {
+			var ul_element = document.getElementsByTagName('ul')[0], content_div = document.getElementById('content');
+			content_div.removeChild(ul_element);
+			ul_element = document.createElement('ul');
+			content_div.appendChild(ul_element);
+		}
+
+		function sort_products() {
+			var i, sort_order, sorted_array = [];
+			sort_order = document.getElementsByTagName('select')[0].options[document.getElementsByTagName('select')[0].selectedIndex].value;
+			for (i = 0; i < products_array.length; i++) {
+				sorted_array[i] = products_array[i][sort_order] + "." + i;
+			};
+			if (sort_order != 'name'){
+				sorted_array.sort();
+			}
+			else {
+				sorted_array.sort( function(a, b) {
+					return a-b;
+				});
+			}
+			remove_li_elements();
+			for (i = 0; i < products_array.length; i++) {
+				create_element(sorted_array[i].split(".").pop());
+			};
+		}
+		</script>
+	</head>
+	<body>
+		<div id='container'>
+			<label>Sort By:</label>
+			<select onchange='sort_products()'>
+				<option value='name'>Name</option>
+				<option value='color'>Color</option>
+				<option value='brand'>Brand</option>
+				<option value='sold_out'>Availability</option>
+			</select>
+			<div id='content'>
+				<ul>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

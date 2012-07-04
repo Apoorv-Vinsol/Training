@@ -1,0 +1,172 @@
+<!doctype html>
+	<head>
+		<title>CSS Form</title>
+		<style type="text/css">
+			#container{
+				
+			}
+			header {
+				border-bottom: solid 2px #db2927;
+				padding: 0px;
+				width: 100%;
+			}
+			header img{
+				display: inline;
+			}
+			header #info{
+				margin-top: 50px;
+				float: right;
+				font-family: Tahoma, Arial, sans-serif;
+				font-size: 13px;
+				color: black;
+				display: inline-block;
+			}
+			header span a{
+				color: #045198;
+			}
+			section{
+				clear: both;
+				margin-left: 20%;
+			}
+			section .heading{
+				font-size: 18px;
+				color: #2c286d;
+				width: 100%;
+			}
+			section form{
+				font-family: Tahoma, Arial, sans-serif;
+				font-size: 13px;
+				color: #6f6f6f;	
+			}
+			section form fieldset{
+				background-color: #ececec;
+				border: solid 1px #bcbcbc;
+				width: 650px;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				padding-left: 30px;	
+			}
+			section form label{
+				color: black;
+				float: left;
+				font-family: Tahoma, Arial, sans-serif;
+				font-size: 14px;
+				margin: 5px;
+				width: 100px;
+				text-align: right;
+				padding-right: 10px;
+			}
+			section form input[type=text], input[type=password]{
+				float: left;
+				background-color: white;
+				border-color: #b9b9b9;
+				width: 360px;
+				height: 25px;
+				margin: 5px;
+			}
+			select form input[type=radio]{
+				width:20px;
+				margin:5px;
+			}
+			section form select{
+				width: 110px;
+				font-family: Tahoma, Arial, sans-serif;
+				font-size: 13px;
+				color: #6f6f6f;
+				margin-bottom: 10px;
+			}
+			section form textarea{
+				background-color: white;
+				border-color: #b9b9b9;
+				width: 360px;
+				height: 135px;
+			}
+			section form #submit{
+				background-color: #dc2927;
+				border: solid 1px #a10200;
+				width: 130px;
+				height: 32px;
+				text-align: center;
+				font-family: Tahoma, Arial, sans-serif;
+				font-size: 14px;
+				color: white;
+				margin-left: 120px;
+				cursor: pointer;
+				margin-top:5px;
+			}
+			section form .field{
+				width: 600px;
+				clear: both;
+				margin-bottom: 10px;
+			}
+			section form .radio-field{
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='container'>
+			<header>
+				<img src='http://dl.dropbox.com/u/17934144/vtapp/vinsol-logo.png' alt='Image not found'/>
+				<div id='info'>
+					<span>Email us at:<a href="#">sales@vinsol.com</a></span>
+					<span>Skype: <a href="#">Vinsol</a></span>
+				</div>
+			</header>
+			<br/>
+			<br/>
+			<section>
+				<div class='heading'>
+					Please fill the form below:
+				</div>
+				<form>
+					<fieldset>
+						<div class='field'>
+							<label>First Name</label>
+							<input type='text'/>
+						</div>
+						<div class='field'>
+							<label>Last Name</label>
+							<input type='text'/>
+						</div>
+						<div class='field'>
+							<label>Email Address</label>
+							<input type='text'/><br/>
+						</div>
+						<div class='field'>
+							<label>Password</label>
+							<input type='password'/	><br/>
+						</div>
+						<div class='field'>
+							<label>Gender</label>
+							<div  class='radio-field'>
+								<input type='radio' name='sex' value='male' class='radio'><span>Male</span>
+							</div>
+							<div class='radio-field'>
+								<input type='radio' name='sex' value='female' class='radio'><span>Female</span><br/>
+							</div>
+						</div>
+						<div class='field'>
+							<label>Date of Birth</label>
+							<select name='date'>
+								<option>DD</option>
+							</select>
+							<select name='date'>
+								<option>MM</option>
+							</select>
+							<select name='date'>
+								<option>YY</option>
+							</select>
+							<br/>
+						</div>
+						<div class='field'>
+							<label>Address</label>
+							<textarea rows='10' cols='50'></textarea><br/>
+						</div>						
+						<input id='submit' type='submit' value='Submit'>
+					</fieldset>
+				</form>
+			</section>
+		</div>
+	</body>
+</html>

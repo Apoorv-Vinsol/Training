@@ -1,0 +1,135 @@
+<!doctype html>
+	<head>
+		<title>JavaScript Exercise 3</title>
+		<style type="text/css">
+			table{
+				border-collapse: collapse;
+			}
+			table, th, td{
+				border: 2px solid grey;
+			}
+			th,td{
+				height: 30px;
+				width: 120px;
+			}
+			th{
+				text-align: center;
+			}
+			td{
+				text-align: left;
+				padding: 5px 0px 5px 12px;
+			}
+		</style>
+		<script type="text/javascript">
+			var row_counter = 0;
+
+			function create_empty_row_fields(){
+				if(document.getElementById('no_id') == null)
+				{
+					name_element = document.createElement("input");
+					name_element.setAttribute('name', 'name');
+
+					email_element = document.createElement("input");
+					email_element.setAttribute('name', 'email');
+
+					action_element = document.createElement("input");
+					action_element.setAttribute('type', 'submit');
+					action_element.setAttribute('value', 'Save');
+					action_element.setAttribute('onclick', 'add_row()');
+
+					add_to_table(name_element, email_element, action_element, null, 'no_id');	
+				}
+				else{
+					alert('Input Fields already present');
+				}
+			}
+
+			function add_to_table(name_element, email_element, first_action_element, second_action_element, row_id){
+				cell1 = document.createElement('td');
+				cell1.appendChild(name_element);
+				cell2 = document.createElement('td');
+				cell2.appendChild(email_element);
+				cell3 = document.createElement('td');
+				cell3.appendChild(first_action_element);
+				if(second_action_element != null){
+					backslash_element = document.createTextNode("  /  ");
+					cell3.appendChild(backslash_element);
+					cell3.appendChild(second_action_element);
+				}
+
+				row_element = document.createElement('tr');
+				row_element.setAttribute('id', row_id);
+				row_element.appendChild(cell1);
+				row_element.appendChild(cell2);
+				row_element.appendChild(cell3);
+
+				table_element = document.getElementsByTagName('tbody')[0];
+				table_element.appendChild(row_element);
+			}
+
+			function add_row(){
+				row_counter++;
+				var name = document.getElementsByName('name')[0];
+				var email = document.getElementsByName('email')[0];
+
+				var name_element = document.createTextNode(name.value);
+				var email_element = document.createTextNode(email.value);
+
+				var delete_link = create_link('Delete');				
+				var edit_link = create_link('Edit');
+
+				var rows = document.getElementsByTagName('tr');
+				var table_element = document.getElementsByTagName('tbody')[0];
+				table_element.removeChild(rows[rows.length - 1]);
+
+				add_to_table(name_element, email_element, edit_link, delete_link, 'row' + row_counter);
+			}
+
+			function create_link(operation){
+				var link = document.createElement('a');
+				link.setAttribute('name', operation);
+				link.setAttribute('href', '#');
+				link.innerHTML = operation;
+				link.setAttribute('onclick', '' + operation.toLowerCase() + '_row(' + row_counter + ')');
+				return link;
+			}
+
+			function delete_row(row_id){
+				var row = document.getElementById('row' + row_id);
+				var table_element = document.getElementsByTagName('tbody')[0];
+				table_element.removeChild(row);
+			}
+
+			function edit_row(row_id){
+				var row = document.getElementById('row' + row_id);
+				var row_elements = row.getElementsByTagName('td');
+				var name_value = row_elements[0].innerHTML;
+				var email_value = row_elements[1].innerHTML;
+				row.innerHTML = "<td><input type='text' name='name' id='row_" + row_id + "' value='" + name_value + "'/></td>";
+				row.innerHTML += "<td><input type='text' name='email' id='row_" + row_id + "' value='" + email_value + "'/></td>";
+				row.innerHTML += "<td><button onclick='update_row(" + row_id +")'>Update</button>";
+			}
+
+			function update_row(row_id){
+				var row = document.getElementById('row' + row_id);
+				var table_element = document.getElementsByTagName('tbody')[0];
+
+				var name = document.getElementsByName('name')[0];
+				var email = document.getElementsByName('email')[0];
+
+				row.innerHTML = "<td>" + name.value + "</td><td>"+ email.value + "</td><td><a href='#' onclick='edit_row("+ row_id +")'>Edit</a>&nbsp<a href='#' onclick='delete_row(" + row_id + ")'>Delete</a></td>"
+			}
+
+		</script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</tr>
+		</table>
+		<button name='add_row_button' onclick='create_empty_row_fields()'>Add New Row</button>
+	</body>
+</html>

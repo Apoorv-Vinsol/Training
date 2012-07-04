@@ -1,0 +1,136 @@
+<html>
+	<head>
+		<title>Menu Bar</title>
+		<style>
+				#outer{
+					list-style:none;
+					font-style:italic;
+					width: 600px;
+				}
+				#outer li{
+					float:left;
+					position:relative;
+					border-bottom: solid 1px #6d6d6d;
+				}
+				#outer li a{
+					margin-left: 1px;
+					float:left;
+					font-size:18px;
+					color:black;
+					background-color:#CFCFCF;
+					padding-left:20px;
+					padding-right:20px;
+					font-family:"Times New Roman",Georgia,Serif;
+					text-decoration: none;
+					height: 37px;
+					padding-top: 17px;
+					
+				}
+				#outer li:hover{
+					border: 1px solid #6d6d6d;
+					border-bottom: 0px;
+				}
+				#outer li:hover a{
+					color:#8c8c8c;
+					background-color:white;
+					height:37px;
+					font-family:"Times New Roman",Georgia,Serif;
+					font-style:italic;
+					padding-right: 18px;
+				}
+				#outer ul{
+					margin-top:54px;
+					list-style:none;
+					position:absolute;
+					left:-9999px;
+					border: solid 1px #6d6d6d;
+					border-top: 0px;
+					margin-left: -1px;
+					padding: 8px;
+					font-size: 14px;
+				}
+				#outer ul li{
+					float:none;
+					text-align:left;
+					border-bottom: solid 1px #CFCFCF;
+					min-width: 200px;
+					padding-top: 5px;
+					padding-bottom: 5px;
+				}
+				#outer ul li:hover{
+					border: 0px;
+					color: #bd0707;
+					cursor: pointer;
+				}
+				#outer ul li:last-child{
+					border-bottom: 0px;
+				}
+				#outer li:last-child:hover ul{
+					position: absolute;
+					left: -95px;
+				}
+				#outer li:last-child:hover ul li{
+					text-align: right;
+				}
+				#outer li:hover ul{
+					left:0;
+				}
+				#outer li:hover ul li{
+					border-bottom: solid 1px #CFCFCF;
+				}
+				#outer li:hover ul li:last-child{
+					border-bottom: 0px;
+				}
+
+		</style>
+	</head>
+	<body>
+		<ul id='outer'>
+			<li><a href='#'>Home</a>
+				<ul class='inner'>
+					<li>Example Link 1</li>
+					<li>Example Link 2</li>
+					<li>Example Link 3</li>
+					<li>Example Link 4</li>
+					<li>Example Link 5</li>
+				</ul>
+			</li>
+			<li><a href='#'>About Us</a>
+				<ul class='inner'>
+					<li>Example Link 1</li>
+					<li>Example Link 2</li>
+					<li>Example Link 3</li>
+					<li>Example Link 4</li>
+					<li>Example Link 5</li>
+				</ul>
+			</li>
+			<li><a href='#'>Our Services</a>
+				<ul  class='inner'>
+					<li>Example Link 1</li>
+					<li>Example Link 2</li>
+					<li>Example Link 3</li>
+					<li>Example Link 4</li>
+					<li>Example Link 5</li>
+				</ul>
+			</li>
+			<li><a href='#'>Our Portfolio</a>
+				<ul  class='inner'>
+					<li>Example Link 1</li>
+					<li>Example Link 2</li>
+					<li>Example Link 3</li>
+					<li>Example Link 4</li>
+					<li>Example Link 5</li>
+				</ul>
+			</li>
+			<li><a href='#'>Contact Us</a>
+				<ul  class='inner'>
+					<li>Example Link 1</li>
+					<li>Example Link 2</li>
+					<li>Example Link 3</li>
+					<li>Example Link 4</li>
+					<li>Example Link 5</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
+</html>

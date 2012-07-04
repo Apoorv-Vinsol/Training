@@ -1,0 +1,21 @@
+<!doctype html>
+	<head>
+		<title>JavaScript HTML Exercise 2</title>
+		<script type="text/javascript">
+			document.onload(seek_url());
+			function seek_url(){
+				var url = prompt("Please a Valid URL", "http://www.google.com");
+				if(url === ""){
+					alert('Please Enter a Valid URL');
+					seek_url();
+				}
+				else{
+					window.open(url, 'new_window', 'location=1,status=1,width=400,height=450');
+				}
+			}
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

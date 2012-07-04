@@ -1,0 +1,33 @@
+<!doctype html>
+	<head>
+		<title>JavaScript RegEx Exercise 3</title>
+		<script type="text/javascript">
+			function check_subdomain(){
+				var url = document.getElementsByName('domain_name')[0].value;
+				url = url.replace(/(http:\/\/|https:\/\/|www\.)*/, "")
+				var sub_domains = url.split('.');
+				if(sub_domains.length > 2){
+					sub_domains.pop();
+					sub_domains.pop()
+					alert('Sub-Domains are: ' + sub_domains.join(", "));
+				}
+				else if(sub_domains.length > 1){
+					sub_domains.pop();
+					alert('Domains name is: ' + sub_domains[0]);
+				}else{
+					alert('Please enter a Valid Domain Name');
+				}
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<form action='#' onsubmit="return check_subdomain()">
+				<label>Enter Domain or Sub-Domain</label>
+				<input type='text' name='domain_name' /><br/>
+				<input type='submit' value='Submit'/>
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+	<head>
+		<title>JavaScript RegEx Exercise 2</title>
+		<script type="text/javascript">
+			function perform(operation){
+				var input_data = document.getElementsByName('data_field')[0];
+				var output_data = document.getElementsByName('output_field')[0];
+
+				if(/^[0-9]+$/.test(input_data.value)){
+					if(operation == 'update'){
+						output_data.value = 'true';
+					}
+					else{
+						return true;
+					}
+				}
+				else{
+					output_data.value = 'false';
+					return false;
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<form action='#' onsubmit="return perform('validation')">
+				<label>Enter Number</label>
+				<input type='text' name='data_field' onchange="perform('update')" /><br/>
+				<label>Result:</label>
+				<input type='text' name='output_field' /><br/>
+				<input type='submit' value='Submit'/>
+			</form>
+		</div>
+	</body>
+</html>

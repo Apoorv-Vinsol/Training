@@ -1,0 +1,66 @@
+<!doctype html>
+	<head>
+		<title>JavaScript HTML Exercise 2</title>
+		<style type="text/css">
+			#container{
+				width: 100%;
+			}
+			select{
+				width: 300px;
+				height: 100px;
+				padding: 10px;
+				margin: 5px;
+			}
+			#operation-buttons{
+				display: inline-table;
+				width: 30px;
+				text-align: center;
+			}
+			#operation-buttons button{
+				background-color: orange;
+				padding:10px;
+				width: 100px;
+				-moz-border-radius: 20px;
+				-webkit-border-radius: 20px;
+				-khtml-border-radius: 20px;
+				border-radius: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			function add(from_box_name, to_box_name){
+				var from_box = document.getElementsByName(from_box_name)[0];
+				var to_box = document.getElementsByName(to_box_name)[0];
+				var temp_option;
+				for (var i = from_box.length - 1; i >= 0; i--) {
+					if(from_box[i].selected){
+						temp_option = from_box[i];
+						from_box[i].parentNode.removeChild(from_box[i]);
+						to_box.appendChild(temp_option);
+					}
+				};
+			}
+		</script>
+	</head>
+	<body>
+		<div id='container'>
+			<select multiple='multiple' name='developing'>
+				<option>India</option>
+				<option>Pakistan</option>
+				<option>China</option>
+				<option>Sri Lanka</option>
+				<option>New Zealand</option>
+			</select>
+			<div id='operation-buttons'>
+				<button name='add' onclick='add("developing", "developed")'>ADD--></button>
+				<button name='remove' onclick='add("developed", "developing")'><--REMOVE</button>
+			</div>
+			<select multiple='multiple' name='developed'>
+				<option>USA</option>
+				<option>UK</option>
+				<option>Canada</option>
+				<option>Africa</option>
+				<option>Australia</option>
+			</select>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+	<head>
+		<title>JavaScript Exercise 1</title>
+		<script type="text/javascript">
+			
+			function check_condition(element){
+				deselect_none_checkbox();
+				var checkboxes_array = document.getElementsByTagName('input');
+				var checked_boxes = [];
+				for (var k=0; k<checkboxes_array.length;k++){
+					if(checkboxes_array[k].checked){
+						checked_boxes.push(checkboxes_array[k].value);
+					}
+				}
+				if(checked_boxes.length > 3){
+					last_element = document.getElementsByName(checked_boxes[checked_boxes.length -1])[0];
+					last_element.checked = false;
+					checked_boxes.pop();
+					alert('Only 3 days can be selected. You have already selected ' + checked_boxes.join(',') + '.');
+				}
+			}
+
+			function deselect_none_checkbox(){
+				var element = document.getElementsByName('none_checkbox')[0];
+				element.checked = false;
+			}
+
+			function checknone(){
+				var checkboxes_array = document.getElementsByTagName('input');
+				var none_checkbox = document.getElementsByName('none_checkbox')[0];
+				for (var k=0; k<checkboxes_array.length;k++){
+					checkboxes_array[k].checked = false;
+				}
+				none_checkbox.checked = true;
+			}
+		</script>
+	</head>
+	<body>
+		<label>Sunday</label>
+		<input type='checkbox' name='Sunday' value='Sunday' onclick='check_condition()' /><br/>
+		<label>Monday</label>
+		<input type='checkbox' name='Monday' value='Monday' onclick='check_condition()'/><br/>
+		<label>Tuesday</label>
+		<input type='checkbox' name='Tuesday' value='Tuesday' onclick='check_condition()'/><br/>
+		<label>Wednesday</label>
+		<input type='checkbox' name='Wednesday' value='Wednesday' onclick='check_condition()'/><br/>
+		<label>Thursday</label>
+		<input type='checkbox' name='Thursday' value='Thursday' onclick='check_condition()'/><br/>
+		<label>Friday</label>
+		<input type='checkbox' name='Friday' value='Friday' onclick='check_condition()'/><br/>
+		<label>Saturday</label>
+		<input type='checkbox' name='Saturday' value='Saturday' onclick='check_condition()'/><br/><br/>
+
+		<label>None</label>
+		<input type='checkbox' name='none_checkbox' value='black' onclick='checknone()'/><br/>
+
+	</body>
+</html>

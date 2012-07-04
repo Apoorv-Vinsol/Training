@@ -1,0 +1,115 @@
+<!doctype html>
+	<head>
+		<title>JavaScript HTML Form Exercise 1</title>
+		<style type="text/css">
+			#container{
+				width: 500px;
+				font-size: 14px;
+				background-color: #DEDEDE;
+			}
+			section{
+				padding: 5px;
+			}
+			#heading{
+				font-size: 15px;
+				color: white;
+				background-color: #24BD29;
+				text-align: center;
+				padding: 5px;
+			}
+			.field{
+				width: 300px;
+				padding: 5px;
+			}
+			.field label{
+				float: left;
+				padding: 3px;
+			}
+			.field input[type=text], select{
+				float: right;
+			}
+			.field select{
+				width: 175px;
+			}
+			.notification{
+				text-align: center;
+			}
+			span{
+				font-size: 12px;
+				font-weight: bold;
+			}
+			.error-field{
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			function perform_validations(){
+				var input_elements = document.getElementsByTagName('input');
+				var textarea_element = document.getElementsByTagName('textarea')[0];
+
+				for (var i = 0; i < input_elements.length; i++) {
+					if(input_elements[i].value === ""){
+						alert("" + input_elements[i].name.toUpperCase() + " can't be left empty.");
+						return false;
+					}
+					else if((input_elements[i].type == 'checkbox') && (input_elements[i].checked == false)){
+						alert('Please accept the reception of notifications of comments.');
+						return false;
+					}
+				}
+
+				if(textarea_element.value === "" || textarea_element.value.length < 50){
+					alert("" + textarea_element.name.toUpperCase() + ' should not be empty and should have more than 50 characters');
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id='container'>
+			<div id='heading'>
+				<span>Registration Form</span>
+			</div>
+			<section>
+				<form action="#" onsubmit='return perform_validations()' name='html_form'>
+					<div class='field'>
+						<label>Login Id:</label>
+						<input type='text' name='login_id' placeholder='Enter Login Id' /><br/>
+					</div>
+					<div class='field'>
+						<label>Email:</label>
+						<input type='text' name='email' placeholder='Enter Email-Id'/><br/>
+					</div>
+					<div class='field'>
+						<label>Name:</label>
+						<input type='text' name='name' placeholder='Enter Name'/><br/>
+					</div>
+					<div class='field'>
+						<label>TimeZone</label>
+						<select>
+							<option>GMT</option>
+							<option>IST</option>
+						</select><br/>
+					</div>
+					<div class='field'>
+						<label>Home Page:</label>
+						<input type='text' name='home_page' placeholder='Enter Home Page URL' /><br/>
+					</div>
+					<div class='field'>
+						<label>About me</label>
+						<textarea rows='5' cols='50' name='about_me' placeholder='Enter some information about yourself'></textarea><br/>
+					</div>
+					<div class='field'>
+						<input type='checkbox' value='notification_reception' />
+						<span>Recieve notification of comments.</span>
+					</div>
+					<span>You will be sent an email when someone posts comments to your blog</span><br/><br/>
+					<div class='notification'>
+						<span>Your password will be mailed to you.</span><br/>
+						<input type='submit' value='Go' />
+					</div>
+				</form>
+			</section>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+	<head>
+		<title>jQuery Exercise 1</title>
+		<style type="text/css">
+			div{
+				border: 1px solid black;
+				height: 100px;
+				width: 100px;
+				position: relative;
+				background-color: red;
+			}
+			#stack_container{
+				background-color: white;
+				border: 0px;
+			}
+			button{
+				position:relative;
+			}
+		</style>
+		<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js'></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#add_div').click(function(){
+					$('#stack_container').append('<div class="stack_element"></div>');
+					recursion();
+				});
+			});
+
+			function recursion(){
+				$('#stack_container div').off('click');
+				$('#stack_container div').on('click', function(){
+					$(this).effect('highlight');
+				});
+				$('#stack_container div').last().off('click');
+				$('#stack_container div').last().click(function(){
+					$(this).remove();
+					recursion();
+				});				
+			}
+		</script>
+	</head>
+	<body>
+		<div id='stack_container'>
+			<button id='add_div'>Add Item</button>
+		</div>
+	</body>
+</html>

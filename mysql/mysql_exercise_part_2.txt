@@ -1,0 +1,181 @@
+--- SCHEMA ---
+
+mysql> create table Branch(Bcode varchar(3) not null, Librarian varchar(20) not null, Address varchar(20) not null);
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc Branch;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Bcode     | varchar(3)  | NO   |     | NULL    |       |
+| Librarian | varchar(20) | NO   |     | NULL    |       |
+| Address   | varchar(20) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table Titles(Title varchar(20) not null, Author varchar(20) not null, Publisher varchar(20) not null);
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> desc Titles;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Title     | varchar(20) | NO   |     | NULL    |       |
+| Author    | varchar(20) | NO   |     | NULL    |       |
+| Publisher | varchar(20) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table Holdings(Branch varchar(20) not null, Title varchar(20) not null, copies integer(3) not null);
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> desc Holdings;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Branch | varchar(20) | NO   |     | NULL    |       |
+| Title  | varchar(20) | NO   |     | NULL    |       |
+| copies | int(3)      | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into Branch values('B1', 'John Smith', '2 Anglesea Rd');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Branch values('B2', 'Mary Jones', '34 Pearse St');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Branch values('B3', 'Francis Owens', 'Grange X');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select  * from Branch;
++-------+---------------+---------------+
+| Bcode | Librarian     | Address       |
++-------+---------------+---------------+
+| B1    | John Smith    | 2 Anglesea Rd |
+| B2    | Mary Jones    | 34 Pearse St  |
+| B3    | Francis Owens | Grange X      |
++-------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Titles values('Susannah', 'Ann Brown', 'Macmillan');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Titles values('How to Fish', 'Amy Fly', 'Stop Press');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Titles values('A History of Dublin', 'David Little', 'Wiley');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Titles values('Computers', 'Blaise Pascal', 'Applewoods');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Titles values('The Wife', 'Ann Brown', 'Macmillan');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from Titles;
++---------------------+---------------+------------+
+| Title               | Author        | Publisher  |
++---------------------+---------------+------------+
+| Susannah            | Ann Brown     | Macmillan  |
+| How to Fish         | Amy Fly       | Stop Press |
+| A History of Dublin | David Little  | Wiley      |
+| Computers           | Blaise Pascal | Applewoods |
+| The Wife            | Ann Brown     | Macmillan  |
++---------------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into Holdings values('B1', 'Susannah', 3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Holdings values('B1', 'How to', 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Holdings values('B1', 'A hist', 1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Holdings values('B2', 'How to', 4);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Holdings values('B2', 'Computers', 2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Holdings values('B2', 'The Wife', 3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Holdings values('B3', 'A hist ..', 1);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Holdings values('B3', 'Computers', 4);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Holdings values('B3', 'Susannah', 3);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Holdings values('B3', 'The Wife', 1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Holdings;
++--------+-----------+--------+
+| Branch | Title     | copies |
++--------+-----------+--------+
+| B1     | Susannah  |      3 |
+| B1     | How to    |      2 |
+| B1     | A hist    |      1 |
+| B2     | How to    |      4 |
+| B2     | Computers |      2 |
+| B2     | The Wife  |      3 |
+| B3     | A hist .. |      1 |
+| B3     | Computers |      4 |
+| B3     | Susannah  |      3 |
+| B3     | The Wife  |      1 |
++--------+-----------+--------+
+10 rows in set (0.00 sec)
+
+--- Sub - Exercise 1 ---
+
+mysql> select Title from Titles where Publisher = 'Macmillan';
++----------+
+| Title    |
++----------+
+| Susannah |
+| The Wife |
++----------+
+2 rows in set (0.00 sec)
+
+
+--- Sub - Exercise 2 ---
+
+mysql> select bcode, librarian, address from Branch where bcode IN (select branch from Holdings where title IN (select title from Titles where author = 'Ann Brown'));
++-------+---------------+---------------+
+| bcode | librarian     | address       |
++-------+---------------+---------------+
+| B1    | John Smith    | 2 Anglesea Rd |
+| B2    | Mary Jones    | 34 Pearse St  |
+| B3    | Francis Owens | Grange X      |
++-------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+--- Sub - Exercise 3 ---
+
+mysql> select Branch.bcode, Branch.Librarian, Branch.Address from Branch INNER JOIN Holdings on Branch.bcode = Holdings.branch INNER JOIN Titles on Titles.title = Holdings.title where Titles.author = 'Ann Brown' group by Holdings.branch;
++-------+---------------+---------------+
+| bcode | Librarian     | Address       |
++-------+---------------+---------------+
+| B1    | John Smith    | 2 Anglesea Rd |
+| B2    | Mary Jones    | 34 Pearse St  |
+| B3    | Francis Owens | Grange X      |
++-------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+--- Sub - Exercise 4 ---
+
+mysql> select branch, sum(copies) as 'Number of Copies available' from Holdings group by branch;
++--------+----------------------------+
+| branch | Number of Copies available |
++--------+----------------------------+
+| B1     |                          6 |
+| B2     |                          9 |
+| B3     |                          9 |
++--------+----------------------------+
+3 rows in set (0.03 sec)

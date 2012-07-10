@@ -1,0 +1,194 @@
+mysql> create table users(id integer primary key, name varchar(20));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> desc users;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> create table friends(user_id integer, friend integer, foreign key (user_id) references users(id), foreign key (friend) references users(id));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> desc friends;
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| user_id | int(11) | NO   | PRI | NULL    |       |
+| friend  | int(11) | YES  | MUL | NULL    |       |
++---------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table images(id integer primary key, image_user integer, foreign key (image_user) references users(id));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> desc images;
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| id         | int(11) | NO   | PRI | NULL    |       |
+| image_user | int(11) | YES  | MUL | NULL    |       |
++------------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table tags(image_id integer, tagged integer, foreign key (image_id) references images(id), foreign key (tagged) references users(id));
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> desc tags;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| image_id | int(11) | YES  | MUL | NULL    |       |
+| tagged   | int(11) | YES  | MUL | NULL    |       |
++----------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into users values(1, 'a');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into users values(2, 'b');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into users values(3, 'c');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into users values(4, 'd');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from users;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
+|  2 | b    |
+|  3 | c    |
+|  4 | d    |
++----+------+
+4 rows in set (0.02 sec)
+
+mysql> insert into images values(1, 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into images values(2, 2);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into images values(3, 2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into images values(4, 3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into images values(5, 3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into images values(6, 3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into images values(7, 4);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into images values(8, 4);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into images values(9, 4);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from images;
++----+------------+
+| id | image_user |
++----+------------+
+|  1 |          2 |
+|  2 |          2 |
+|  3 |          2 |
+|  4 |          3 |
+|  5 |          3 |
+|  6 |          3 |
+|  7 |          4 |
+|  8 |          4 |
+|  9 |          4 |
++----+------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into tags values(1, 1);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into tags values(2, 1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into tags values(3, 1);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into tags values(4, 1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into tags values(4, 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from tags;
++----------+--------+
+| image_id | tagged |
++----------+--------+
+|        1 |      1 |
+|        2 |      1 |
+|        3 |      1 |
+|        4 |      1 |
+|        4 |      2 |
++----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into friends values(1, 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into friends values(1, 3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from friends;
++---------+--------+
+| user_id | friend |
++---------+--------+
+|       1 |      2 |
+|       1 |      3 |
++---------+--------+
+2 rows in set (0.00 sec)
+
+------- Solution Query 1 ---------
+
+mysql> select image_id, count(*) from tags group by image_id order by count(*) desc limit 1;
++----------+----------+
+| image_id | count(*) |
++----------+----------+
+|        4 |        2 |
++----------+----------+
+1 row in set (0.00 sec)
+
+------- Solution Query 2 ---------
+
+mysql> select id from images where image_user in (select friend from friends where user_id = 1); 
++----+
+| id |
++----+
+|  1 |
+|  2 |
+|  3 |
+|  4 |
+|  5 |
+|  6 |
++----+
+6 rows in set (0.00 sec)
+
+------- Solution Query 3 ---------
+
+
+
+------- Solution Query 4 ---------
+
+mysql> select image_user, count(image_user) from images where id in (select image_id from tags where tagged = 1 and image_id in (select id from images where image_user in (select friend from friends where user_id = 1))) group by image_user order by count(image_user) desc limit 1;
++------------+-------------------+
+| image_user | count(image_user) |
++------------+-------------------+
+|          2 |                 3 |
++------------+-------------------+
+1 row in set (0.00 sec)

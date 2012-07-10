@@ -1,0 +1,3 @@
+mysqldump -u root -p mysql_exercise_3 > restored.sql
+
+mysql -u root -p restored < restored.sql

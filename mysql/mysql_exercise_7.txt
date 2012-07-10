@@ -1,0 +1,47 @@
+---- Exercise 2 ----
+
+Solution 1: The rows count being same means that the number of rows traversed or comparisons made are equal to the total number of rows present in the table, which is a set back for the Query Performance.
+
+Solution 2: We can optimize the query by adding index to the user_id column through which the number of comparions can be reduced from n to log(n)(depending on the search complexity of algorithm used while implementing indexing).
+
+---- Exercise 3 -----
+
+Solution 3.1: The columns to be indexed are in the order of having the most unique identities, i.e. a column with least number of rows associated during the comparisons. The order of adding index hence lies on the above stated factor and cannot be deduced without seeing the stats or count of the number of rows associated with query.
+
+mysql> explain select Branch.bcode, Branch.Librarian, Branch.Address from Branch INNER JOIN Holdings on Branch.bcode = Holdings.branch INNER JOIN Titles on Titles.title = Holdings.title where Titles.author = 'Ann Brown' group by Holdings.branch;
++----+-------------+----------+------+---------------+------+---------+------+------+---------------------------------+
+| id | select_type | table    | type | possible_keys | key  | key_len | ref  | rows | Extra                           |
++----+-------------+----------+------+---------------+------+---------+------+------+---------------------------------+
+|  1 | SIMPLE      | Branch   | ALL  | NULL          | NULL | NULL    | NULL |    3 | Using temporary; Using filesort |
+|  1 | SIMPLE      | Titles   | ALL  | NULL          | NULL | NULL    | NULL |    5 | Using where; Using join buffer  |
+|  1 | SIMPLE      | Holdings | ALL  | NULL          | NULL | NULL    | NULL |   10 | Using where; Using join buffer  |
++----+-------------+----------+------+---------------+------+---------+------+------+---------------------------------+
+3 rows in set (0.00 sec)
+
+----- after adding indexes on a single column in every table related to the query ---------
+
+mysql> explain select Branch.bcode, Branch.Librarian, Branch.Address from Branch INNER JOIN Holdings on Branch.bcode = Holdings.branch INNER JOIN Titles on Titles.title = Holdings.title where Titles.author = 'Ann Brown' group by Holdings.branch;
++----+-------------+----------+------+---------------+--------+---------+--------------------------------------+------+----------------------------------------------+
+| id | select_type | table    | type | possible_keys | key    | key_len | ref                                  | rows | Extra                                        |
++----+-------------+----------+------+---------------+--------+---------+--------------------------------------+------+----------------------------------------------+
+|  1 | SIMPLE      | Titles   | ref  | Author        | Author | 22      | const                                |    2 | Using where; Using temporary; Using filesort |
+|  1 | SIMPLE      | Branch   | ALL  | Bcode         | NULL   | NULL    | NULL                                 |    3 | Using join buffer                            |
+|  1 | SIMPLE      | Holdings | ref  | Branch        | Branch | 22      | mysql_exercise_1_part_2.Branch.Bcode |    1 | Using where                                  |
++----+-------------+----------+------+---------------+--------+---------+--------------------------------------+------+----------------------------------------------+
+3 rows in set (0.00 sec)
+
+
+Solution 3.2: 
+
+mysql> explain select bcode, librarian, address from Branch where bcode IN (select branch from Holdings where title IN (select title from Titles where author = 'Ann Brown'));
++----+--------------------+----------+------+---------------+------+---------+------+------+-------------+
+| id | select_type        | table    | type | possible_keys | key  | key_len | ref  | rows | Extra       |
++----+--------------------+----------+------+---------------+------+---------+------+------+-------------+
+|  1 | PRIMARY            | Branch   | ALL  | NULL          | NULL | NULL    | NULL |    3 | Using where |
+|  2 | DEPENDENT SUBQUERY | Holdings | ALL  | NULL          | NULL | NULL    | NULL |   10 | Using where |
+|  3 | DEPENDENT SUBQUERY | Titles   | ALL  | NULL          | NULL | NULL    | NULL |    5 | Using where |
++----+--------------------+----------+------+---------------+------+---------+------+------+-------------+
+3 rows in set (0.01 sec)
+
+
+There was hardly any difference in the output of the two statements(one using select and the other using join operations) before or after adding indexes.

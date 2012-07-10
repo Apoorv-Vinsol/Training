@@ -2,12 +2,16 @@
 	<head>
 		<title>jQuery Exercise 1</title>
 		<style type="text/css">
-			div{
+			.stack_element{
 				border: 1px solid black;
-				height: 100px;
+				max-height: 100px;
 				width: 100px;
 				position: relative;
 				background-color: red;
+				font-size: 50px;
+				text-align: center;
+				vertical-align: middle;
+				padding: 30px 10px;
 			}
 			#stack_container{
 				background-color: white;
@@ -20,24 +24,43 @@
 		<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
 		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js'></script>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				$('#add_div').click(function(){
-					$('#stack_container').append('<div class="stack_element"></div>');
-					recursion();
-				});
-			});
+		/*
+		$(document).ready(function(){
+			var counter = 0;
 
-			function recursion(){
-				$('#stack_container div').off('click');
-				$('#stack_container div').on('click', function(){
+			$('#add_div').click(function(){
+				$('#stack_container').append('<div class="stack_element"><span>' + ++counter + '</span></div>');
+				$('.stack_element:not(:last)').off().on('click', function(){
 					$(this).effect('highlight');
 				});
-				$('#stack_container div').last().off('click');
-				$('#stack_container div').last().click(function(){
+				$('.stack_element:last').on('click', function(){
+					counter --;
 					$(this).remove();
+				});
+			});
+		});
+		*/
+			$(document).ready(function(){
+				var counter = 0;
+				$('#add_div').click(function(){
+					$('#stack_container').append('<div class="stack_element"><span>' + ++counter + '</span></div>');
 					recursion();
-				});				
-			}
+				});
+
+				function recursion(){
+					$('#stack_container div').off('click');
+					$('#stack_container div').on('click', function(){
+						$(this).effect('highlight');
+					});
+					$('#stack_container div').last().off('click');
+					$('#stack_container div').last().click(function(){
+						counter--;
+						$(this).remove();
+						recursion();
+					});				
+				}
+
+			});
 		</script>
 	</head>
 	<body>

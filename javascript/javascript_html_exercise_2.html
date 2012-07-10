@@ -2,15 +2,21 @@
 	<head>
 		<title>JavaScript HTML Exercise 2</title>
 		<script type="text/javascript">
-			document.onload(seek_data());
-
 			function seek_data(){
-				var first_name = prompt("Please Enter your First Name", "Ghost");
-				var last_name = prompt('Please Enter your Last Name', 'Rider');
-				var display_text = 'Hello ' + first_name + " " + last_name;
-				alert(display_text);
-				document.write(display_text);
+				var first_name = prompt("Please Enter your First Name", "Ghost").replace(/^[\s]*|[\s]*$/g, "");
+				var last_name = prompt('Please Enter your Last Name', 'Rider').replace(/^[\s]*|[\s]*$/g, "");
+				if((first_name === "" ) || (last_name === "" )){
+					alert('Names should not be empty. Please enter valid names');
+					seek_data();
+				}
+				else{
+					var display_text = 'Hello ' + first_name + " " + last_name;
+					alert(display_text);
+					document.write(display_text);					
+				}
 			}
+
+			seek_data();
 		</script>
 	</head>
 	<body>

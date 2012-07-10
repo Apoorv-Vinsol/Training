@@ -48,7 +48,7 @@
 				var textarea_element = document.getElementsByTagName('textarea')[0];
 
 				for (var i = 0; i < input_elements.length; i++) {
-					if(input_elements[i].value === ""){
+					if(input_elements[i].value.replace(/\s+/g, '') === ""){
 						alert("" + input_elements[i].name.toUpperCase() + " can't be left empty.");
 						return false;
 					}
@@ -58,7 +58,7 @@
 					}
 				}
 
-				if(textarea_element.value === "" || textarea_element.value.length < 50){
+				if(textarea_element.value.replace(/\s+/g, '') === "" || textarea_element.value.replace(/\s+/g, ' ').length < 50){
 					alert("" + textarea_element.name.toUpperCase() + ' should not be empty and should have more than 50 characters');
 					return false;
 				}

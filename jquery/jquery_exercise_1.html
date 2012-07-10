@@ -24,43 +24,23 @@
 		<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
 		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js'></script>
 		<script type="text/javascript">
-		/*
+
 		$(document).ready(function(){
 			var counter = 0;
 
 			$('#add_div').click(function(){
 				$('#stack_container').append('<div class="stack_element"><span>' + ++counter + '</span></div>');
-				$('.stack_element:not(:last)').off().on('click', function(){
-					$(this).effect('highlight');
-				});
-				$('.stack_element:last').on('click', function(){
-					counter --;
-					$(this).remove();
-				});
 			});
+			
+			$('#stack_container').delegate('.stack_element:not(:last)', 'click', function(){
+				$(this).effect('highlight');
+			}).delegate('.stack_element:last', 'click', function(){
+				counter --;
+				$(this).remove();
+			});
+
 		});
-		*/
-			$(document).ready(function(){
-				var counter = 0;
-				$('#add_div').click(function(){
-					$('#stack_container').append('<div class="stack_element"><span>' + ++counter + '</span></div>');
-					recursion();
-				});
 
-				function recursion(){
-					$('#stack_container div').off('click');
-					$('#stack_container div').on('click', function(){
-						$(this).effect('highlight');
-					});
-					$('#stack_container div').last().off('click');
-					$('#stack_container div').last().click(function(){
-						counter--;
-						$(this).remove();
-						recursion();
-					});				
-				}
-
-			});
 		</script>
 	</head>
 	<body>

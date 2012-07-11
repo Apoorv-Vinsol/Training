@@ -1,0 +1,321 @@
+----------------------------------------- Database Creation ------------------------------------------------------
+
+create database ckms;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table employees(id integer primary key, name varchar(2));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> insert into employees values(1, 'a');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employees values(2, 'b');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employees values(3, 'c');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employees values(4, 'd');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employees;
++------+------+
+| id   | name |
++------+------+
+|    1 | a    |
+|    2 | b    |
+|    3 | c    |
+|    4 | d    |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table technologies(id integer primary key, name varchar(20) not null);
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> insert into technologies values(1, 'HTML');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into technologies values(2, 'JavaScript');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into technologies values(3, 'Ruby');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> insert into technologies values(4, 'Rails');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into technologies values(5, 'IOS');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into technologies values(6, 'Android');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from technologies;
++----+------------+
+| id | name       |
++----+------------+
+|  1 | HTML       |
+|  2 | JavaScript |
+|  3 | Ruby       |
+|  4 | Rails      |
+|  5 | IOS        |
+|  6 | Android    |
++----+------------+
+6 rows in set (0.00 sec)
+
+mysql> create table projects(id integer primary key, name varchar(3) unique);
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> insert into projects values(1, 'p1');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects values(2, 'p2');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects values(3, 'p3');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects values(4, 'p4');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into projects values(5, 'p5');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into projects values(6, 'p6');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects values(7, 'p7');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects values(8, 'p8');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects values(9, 'p9');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from projects;
++----+------+
+| id | name |
++----+------+
+|  1 | p1   |
+|  2 | p2   |
+|  3 | p3   |
+|  4 | p4   |
+|  5 | p5   |
+|  6 | p6   |
+|  7 | p7   |
+|  8 | p8   |
+|  9 | p9   |
++----+------+
+9 rows in set (0.00 sec)
+
+mysql> create table projects_technologies(project_id integer references projects(id), technology_id integer references technologies(id));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> insert into projects_technologies values(1,1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(1,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(1,3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(1,4);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(2,5);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(3,6);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(4,5);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into projects_technologies values(4,6);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into projects_technologies values(6,6);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(6,1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(6,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(5,3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(5,4);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(7,6);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(7,5);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into projects_technologies values(8,1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(8,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into projects_technologies values(8,3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(8,4);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into projects_technologies values(8,6);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into projects_technologies values(9,5);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from projects_technologies;
++------------+---------------+
+| project_id | technology_id |
++------------+---------------+
+|          1 |             1 |
+|          1 |             2 |
+|          1 |             3 |
+|          1 |             4 |
+|          2 |             5 |
+|          3 |             6 |
+|          4 |             5 |
+|          4 |             6 |
+|          6 |             6 |
+|          6 |             1 |
+|          6 |             2 |
+|          5 |             3 |
+|          5 |             4 |
+|          7 |             6 |
+|          7 |             5 |
+|          8 |             1 |
+|          8 |             2 |
+|          8 |             3 |
+|          8 |             4 |
+|          8 |             6 |
+|          9 |             5 |
++------------+---------------+
+21 rows in set (0.00 sec)
+
+mysql> insert into employee_projects_status values(1, 1, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(1, 2, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(1, 3, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(1, 6, 'current');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(2, 1, 'past');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(2, 3, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(2, 7, 'past');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(2, 9, 'past');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(3, 1, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(3, 8, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(3, 9, 'past');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(3, 2, 'past');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(4, 1, 'past');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee_projects_status values(4, 2, 'past');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee_projects_status values(4, 4, 'past');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee_projects_status values(4, 5, 'current');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee_projects_status values(4, 6, 'current');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee_projects_status;
++-------------+------------+---------+
+| employee_id | project_id | status  |
++-------------+------------+---------+
+|           1 |          1 | past    |
+|           1 |          2 | past    |
+|           1 |          3 | past    |
+|           1 |          6 | current |
+|           2 |          1 | past    |
+|           2 |          3 | past    |
+|           2 |          7 | past    |
+|           2 |          9 | past    |
+|           3 |          1 | past    |
+|           3 |          8 | past    |
+|           3 |          9 | past    |
+|           3 |          2 | past    |
+|           4 |          1 | past    |
+|           4 |          2 | past    |
+|           4 |          4 | past    |
+|           4 |          5 | current |
+|           4 |          6 | current |
++-------------+------------+---------+
+17 rows in set (0.00 sec)
+
+------------------------------------------------ DML Commands in Execution ------------------------------------------------------
+
+Solution 1:
+
+mysql> select employee_id from employee_projects_status where employee_id not in (select employee_id from employee_projects_status where status like 'current' group by employee_id) group by employee_id;
++-------------+
+| employee_id |
++-------------+
+|           2 |
+|           3 |
++-------------+
+2 rows in set (0.00 sec)
+
+Solution 2:
+
+mysql> select result.employee_id, count(*) from (select emp.employee_id, t.name from employee_projects_status as emp inner join projects_technologies as pt on emp.project_id = pt.project_id inner join technologies as t on t.id = pt.technology_id group by emp.employee_id, t.name HAVING t.name in ('HTML', 'JavaScript', 'IOS')) as result group by result.employee_id having count(*) >= 3;
++-------------+----------+
+| employee_id | count(*) |
++-------------+----------+
+|           1 |        3 |
+|           2 |        3 |
+|           3 |        3 |
+|           4 |        3 |
++-------------+----------+
+4 rows in set (0.00 sec)
+
+Solution 3:
+
+mysql> select count(*), pt.technology_id from employee_projects_status as emp inner join projects_technologies as pt on emp.project_id = pt.project_id where emp.employee_id = 2 group by pt.technology_id having count(*) >= 3;
+Empty set (0.00 sec)
+
+Solution 4:
+
+mysql> select employee_id, count(*) from employee_projects_status as emp inner join projects_technologies as pt on emp.project_id = pt.project_id inner join technologies as t on t.id = pt.technology_id where t.name = "Android" group by employee_id order by count(*) DESC LIMIT 1;
++-------------+----------+
+| employee_id | count(*) |
++-------------+----------+
+|           1 |        2 |
++-------------+----------+
+1 row in set (0.00 sec)

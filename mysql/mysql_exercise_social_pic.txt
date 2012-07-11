@@ -181,7 +181,13 @@ mysql> select id from images where image_user in (select friend from friends whe
 
 ------- Solution Query 3 ---------
 
-
+mysql> select result.friend from (select friends.friend, count(*) as count from users inner join friends on users.id = friends.user_id inner join images on friends.friend = images.image_user inner join tags on images.id = tags.image_id where tagged = 1 group by friend) as result where result.count = (select count(*) from images where image_user = result.friend);
++--------+
+| friend |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
 
 ------- Solution Query 4 ---------
 

@@ -1,0 +1,13 @@
+select distinct employee_id from (select distinct(employee_id) from employee_projects_status eps INNER JOIN projects_technologies pt on eps.project_id = pt.project_id where pt.technology_id = 1) a
+INNER JOIN 
+(select distinct(employee_id) from employee_projects_status eps INNER JOIN projects_technologies pt on eps.project_id = pt.project_id where pt.technology_id = 2) b
+on  a.employee_id = b.employee_id
+INNER JOIN 
+(select distinct(employee_id) from employee_projects_status eps INNER JOIN projects_technologies pt on eps.project_id = pt.project_id where pt.technology_id = 5) c
+;
+
+select emps.employee_id
+from employee_projects_status as emps
+join projects_technologies as pt1 on emps.project_id = pt1.project_id and pt1.project_id = 1
+join projects_technologies as pt2 on emps.project_id = pt2.project_id and pt2.project_id = 2
+join projects_technologies as pt3 on emps.project_id = pt3.project_id and pt3.project_id = 5

@@ -1,18 +1,21 @@
 $(document).ready(function () {
-	$('input[name="q"]')[0].value = $('label[for="q"]')[0].innerHTML;
+	var input_text_box = $('input[name="q"]');
+	var search_label = $('label[for="q"]')
+	
+	input_text_box[0].value = search_label[0].innerHTML;
 
-	$('input[name="q"]').addClass('hint');
+	input_text_box.addClass('hint');
 
-	$('label[for="q"]').remove();
+	search_label.remove();
 
-	$('input[name="q"]').bind('focus', function () {
+	input_text_box.bind('focus', function () {
 		if ($(this)[0].value === "Enter search term") {
 			$(this)[0].value = "";
 			$(this).removeClass('hint');
 		}
 	});
 
-	$('input[name="q"]').bind('blur', function () {
+	input_text_box.bind('blur', function () {
 		if ($(this)[0].value === "") {
 			$(this)[0].value = "Enter search term";
 			$(this).addClass('hint');

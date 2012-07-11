@@ -1,0 +1,222 @@
+<!doctype html>
+	<head>
+		<title>Employee Role Task Management - Part One</title>
+		<style type="text/css">
+		section{
+			display: inline;
+			padding: 30px;
+			margin-left:50px;
+			margin-right: 30px;
+		}
+		span{
+			display: block;
+			width: 100%;
+			text-align: center;
+			border-bottom: 1px solid;
+		}
+		ul {
+			min-height: 20px;
+			width: 200px;
+			margin: 0;
+			list-style-type: none;
+			padding: 0;
+			border: 1px solid black;
+			display: inline-block;
+		}
+		#roles-list{
+			float: left;
+			margin-left: 30px;
+			box-shadow:10px 5px grey;
+			-webkit-box-shadow:10px 5px grey;
+			-moz-box-shadow: 10px 5px grey;
+		}
+		#employee-list{
+			margin-left: 50px;
+			position: fixed;
+			float: center;
+			width: 150px;
+			box-shadow:10px 0px -4px grey;
+			-webkit-box-shadow:10px 0px -4px grey;
+			-moz-box-shadow: 10px 5px -4px grey;
+		}
+		#roles-list li ul li:hover{
+			background-color: #f7f7f7;
+			width: 120%;
+			margin-left: -40px;
+		}
+		#employee-list li{
+			border: 1px solid;
+		}
+		#employee-list li:hover{
+			cursor: move;
+		}
+		ul li ul{
+			width: 100%;
+		}
+		li {
+			margin: 0;
+			padding: 5px;
+			border-bottom: 1px solid;
+		}
+		#todo-list {
+			float: right;
+			width: 600px;
+			margin-right: 30px;
+		}
+		.sub-section div{
+			display: inline-block;
+			border: 1px solid;
+		}
+		.sub-section .todo-list-person{
+			width: 20%;
+		}
+		.sub-section .todo-list-box{
+			width: 75%;
+			height: 100px;
+			font-weight: bold;
+			padding-top: 30px;
+			margin-top: 0px;
+		}
+		.todo-list-box span{
+			border-bottom: 0px;
+		}
+		.blue{
+			background-color: #8b9dc3;
+		}
+		img {
+			float: right;
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+		}
+		.cross_button{
+			float: left;
+			padding-right: 10px;
+		}
+		</style>
+		<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.js'></script>
+		<script type="text/javascript">
+			$(function() {
+				
+				$('#employee-list li').draggable({
+					cursor :'move',
+					revert :true,
+					helper : 'clone'
+				});
+
+				$('#ror-developers, #js-jquery-developers, #android-developers, #ios-developers').droppable({
+					tolerance: 'touch',
+					over: function() {
+						$(this).addClass('blue');
+					},
+					out : function() {
+						$(this).removeClass('blue');
+					},
+					drop: function(event, ui) {
+						$(this).removeClass('blue');
+						createListItem($(this), ui.draggable);
+					}
+				});
+				
+				$('.up_down_button').click(function() {
+					$(this).parent('span').next('ul').slideToggle();
+				});
+				
+				$('#roles-list li ul').on('hover',	'li', function(item) {
+					if(!($('.cross_button') > 0)){
+						$(this).append('<img src="cross_button.gif" class="cross_button" alt="asdasd"/>');
+					}
+				});
+				
+				$('#roles-list li ul').live('mouseleave', 'li',	function() {
+					$('.cross_button').remove();
+				});
+				
+				$('#roles-list li ul li').live('click', '.cross_button', function() {
+					$("#" + $(this).parent('ul').attr('id') + "-" + $(this).text().toLowerCase()).remove();
+					$(this).remove();
+				})
+			});
+
+			function createListItem(list, list_item) {
+				if(!already_present_in(list, list_item)) {
+					list.append('<li>' + list_item.text() + '</li>');
+					$('#' + list.attr('id') + '-todo-list').append('<li id="' + list.attr('id') + "-" + list_item.text().toLowerCase() + '"><div class="sub-section"><div class="todo-list-person"><span>' + list_item.text() + '</span></div><div class="todo-list-box"><span>Add todos for ' + list_item.text() + ' here.</span></div></div></li>');
+				}
+			}
+
+			function already_present_in(list, list_item) {
+				var response = false;
+				$('#' + list.attr('id') + ' li').each(function() {
+					if ($(this).text() == list_item.text()) {
+						response = true;
+					}
+				});
+				return response;
+			}
+		</script>
+	</head>
+	<body>
+		<section id='roles'>
+			<ul id='roles-list'>
+				<span>Roles</span>
+				<li>
+					<span>ROR Developers</span>
+					<ul id='ror-developers'>
+					</ul>
+				</li>
+				<li>
+					<span>JS/jQuery</span>
+					<ul id='js-jquery-developers'>
+					</ul>
+				</li>
+				<li>
+					<span>Android</span>
+					<ul id='android-developers'>
+					</ul>
+				</li>
+				<li>
+					<span>IOS</span>
+					<ul id='ios-developers'>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section id='employees'>
+			<ul id='employee-list'>
+				<span>Employees</span>
+				<li>Akhil</li>
+				<li>Hk</li>
+				<li>Rd</li>
+				<li>Alok</li>
+				<li>Waseem</li>
+			</ul>
+		</section>
+		<section id='todos'>
+			<ul id='todo-list'>
+				<span>ToDos</span>
+				<li>
+					<span>ROR Developer<img src='up_down_button.png' alt='cross' class='up_down_button'/></span>
+					<ul id='ror-developers-todo-list'>
+					</ul>
+				</li>
+				<li>
+					<span>JS / jQuery Developers<img src='up_down_button.png' alt='cross' class='up_down_button'/></span>
+					<ul id='js-jquery-developers-todo-list'>	
+					</ul>
+				</li>
+				<li>
+					<span>Android Developers<img src='up_down_button.png' alt='cross' class='up_down_button'/></span>
+					<ul id='android-developers-todo-list'>
+					</ul>
+				</li>
+				<li>
+					<span>IOS Developers<img src='up_down_button.png' alt='cross' class='up_down_button'/></span>
+					<ul id='ios-developers-todo-list'>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</body>
+</html>
